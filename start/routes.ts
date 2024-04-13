@@ -18,6 +18,9 @@ router.get('/', async () => {
   }
 })
 
-router.post('/api/login', [SessionController, 'login'])
-router.get('/api/user', [UsersController, 'index']).use(middleware.auth())
-router.post('/api/user', [UsersController, 'store'])
+router.post('/api/v1/users/login', [SessionController, 'login'])
+router.get('/api/v1/users', [UsersController, 'index']).use(middleware.auth()) // TODO: borrar middleware.auth() no esta en la prueba
+router.get('/api/v1/users/:id', [UsersController, 'show']).use(middleware.auth())
+router.post('/api/v1/users', [UsersController, 'store']).use(middleware.auth())
+router.put('/api/v1/users/:id', [UsersController, 'update']).use(middleware.auth())
+router.delete('/api/v1/users/:id', [UsersController, 'destroy']).use(middleware.auth())

@@ -8,6 +8,8 @@ export default class SessionController {
     const { email, password } = request.only(['email', 'password'])
     const user = await User.verifyCredentials(email, password)
     const token = await User.accessTokens.create(user)
+    //console.log(await auth.authenticate()) necesita de token
+    //auth.isAuthenticated
     return {
       user,
       token: { access_token: token.value!.release(), token_type: 'bearer' },
