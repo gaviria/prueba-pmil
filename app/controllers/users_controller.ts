@@ -3,6 +3,7 @@
 import { HttpContext } from '@adonisjs/core/http'
 import { IUser } from '../interfaces/IUser.js'
 import User from '#models/user'
+import { USER_MESSAGES } from '../constants/messages.js'
 
 export default class UsersController {
   async index({}: HttpContext) {
@@ -23,27 +24,32 @@ export default class UsersController {
     const user: IUser = await User.create(data)
 
     return user
-    // const data = await request.validate({
-    //   schema: schema.create({
-    //     firstName: schema.string(),
-    //     lastName: schema.string(),
-    //     date_birth: schema.date(),
-    //     address: schema.string(),
-    //     mobile_phone: schema.string(),
-    //     token: schema.string(),
-    //     email: schema.string({}, [
-    //       rules.email(),
-    //     ]),
-    //     password: schema.string({}, [
-    //       rules.minLength(6),
-    //     ]),
-    //   }),
-    // })
   }
 
-  async show({ params }: HttpContext) {}
+  async show({ params }: HttpContext) {
+    return User.findOrFail(params.id)
+  }
 
-  async update({ params, request }: HttpContext) {}
+  async update({ params, request }: HttpContext) {
+    const user = await User.findOrFail(params.id)
+    const data: IUser = request.only([
+      'firstName',
+      'lastName',
+      'date_birth',
+      'address',
+      'mobile_phone',
+      'email',
+      'password',
+    ])
+    user.merge(data)
+    await user.save()
 
-  async destroy({ params }: HttpContext) {}
+    return user
+  }
+
+  async destroy({ params }: HttpContext) {
+    const user = await User.findOrFail(params.id)
+    await user.delete()
+    return { message: USER_MESSAGES.DELETE_SUCCESS, user: user }
+  }
 }
