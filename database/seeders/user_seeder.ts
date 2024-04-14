@@ -8,7 +8,7 @@ export default class extends BaseSeeder {
       {
         first_name: 'prueba',
         last_name: 'prueba',
-        date_birth: DateTime.now().toFormat('yyyy-MM-dd') as any,
+        date_birth: new Date(),
         address: 'Dirección de la prueba',
         mobile_phone: '1234567890',
         email: 'prueba@prueba.com',
@@ -17,7 +17,7 @@ export default class extends BaseSeeder {
       {
         first_name: 'Francisco',
         last_name: 'Gaviria',
-        date_birth: DateTime.now().toFormat('yyyy-MM-dd') as any,
+        date_birth: new Date(),
         address: 'Dirección de la prueba',
         mobile_phone: '123456789',
         email: 'francisco@prueba.com',
