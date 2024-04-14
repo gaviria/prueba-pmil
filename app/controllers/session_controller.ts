@@ -3,8 +3,8 @@ import { HttpContext } from '@adonisjs/core/http'
 
 export default class SessionController {
   async login({ request }: HttpContext) {
-    const { email, password } = request.only(['email', 'password'])
-    const userValidated = await User.verifyCredentials(email, password)
+    const { mobile_phone, password } = request.only(['mobile_phone', 'password'])
+    const userValidated = await User.verifyCredentials(mobile_phone, password)
     const token = await User.accessTokens.create(userValidated)
     return {
       user: userValidated,
