@@ -14,28 +14,28 @@ export default class User extends compose(BaseModel, AuthFinder) {
   @column({ isPrimary: true })
   declare id: number
 
-  @column()
+  @column({ columnName: 'first_name' })
   declare firstName: string
 
-  @column()
+  @column({ columnName: 'last_name' })
   declare lastName: string
 
-  @column()
+  @column({ columnName: 'date_birth' })
   declare date_birth: Date
 
-  @column()
+  @column({ columnName: 'address' })
   declare address: string
 
-  @column()
+  @column({ columnName: 'mobile_phone' })
   declare mobile_phone: string
 
-  @column()
+  @column({ columnName: 'token' })
   declare token: string
 
-  @column()
+  @column({ columnName: 'email' })
   declare email: string
 
-  @column()
+  @column({ columnName: 'password' })
   declare password: string
 
   @column.dateTime({ autoCreate: true })
