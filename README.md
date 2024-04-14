@@ -13,7 +13,7 @@ Para que el proyecto funcione adecuadamente debes tener la versión Node.js >= 2
 [Node.js >= 20.6](https://nodejs.org/en)
 
 
-El proyecto maneja sqlLite para una instalación más facil.
+El proyecto maneja sqlLite para una instalación más fácil.
 
 Para instalar siga los siguientes pasos:
 
@@ -35,13 +35,15 @@ Instalar dependencias con npm
   npm install
 ```
 
-Luego crear la carpeta *tmp* en la raiz del proyecto, alli se instalara la base de datos y ejecutar el comando:
+Luego renombrar el archivo *.env.example* a *.env* 
+
+Crear la carpeta *tmp* en la raíz del proyecto, allí se instalara la base de datos y ejecutar el comando:
 
 ```bash
   node ace migration:run
 ``` 
 
-Intalar seeders de la base de datos de usuario
+Instalar seeders de la base de datos de usuario
 
 ```bash
   node ace db:seed
@@ -52,7 +54,7 @@ Para acceder a los endpoints seguros, puedes usar los usuarios que se encuentran
 [Thunder Client](https://marketplace.visualstudio.com/items?itemName=rangav.vscode-thunder-client) - Recomendado
 
 #### Login
-Este endpoint retornará los datos del usuario y el token a usar en los demás enpoint del proyecto.
+Este endpoint retornará los datos del usuario y el token a usar en los demás endpoint del proyecto.
 
 ```http
   POST /api/v1/users/login
@@ -60,21 +62,21 @@ Este endpoint retornará los datos del usuario y el token a usar en los demás e
 
 | Parameter | Type     | Description                |
 | :-------- | :------- | :------------------------- |
-| `email` | `string` | **Required** |
+| `mobile_phone` | `string` | **Required** |
 | `password` | `string` | **Required** |
 
 
 #### Get all items
 Obtienes una lista de los usuarios en el sistema.
-Debes ingresar el token generado en el endpoint de login para acceder a los datos. En Thunder Client ingresalo en la opción ***Auth -> Bearer***
+Debes ingresar el token generado en el endpoint de login para acceder a los datos. En Thunder Client ingrésalo en la opción ***Auth -> Bearer***
 
 ```http
   GET /api/v1/users
 ```
 
 #### Add item
-Permite crear usuarios en el sistema pasando los parametros requeridos.
-Debes ingresar el token generado en el endpoint de login para acceder a los datos. En Thunder Client ingresalo en la opción ***Auth -> Bearer***
+Permite crear usuarios en el sistema pasando los parámetros requeridos.
+Debes ingresar el token generado en el endpoint de login para acceder a los datos. En Thunder Client ingrésalo en la opción ***Auth -> Bearer***
 ```http
   POST /api/v1/users
 ```
@@ -92,14 +94,14 @@ Debes ingresar el token generado en el endpoint de login para acceder a los dato
 
 #### Get item
 Obtienes un usuario especificando el id de este.
-Debes ingresar el token generado en el endpoint de login para acceder a los datos. En Thunder Client ingresalo en la opción ***Auth -> Bearer***
+Debes ingresar el token generado en el endpoint de login para acceder a los datos. En Thunder Client ingrésalo en la opción ***Auth -> Bearer***
 ```http
   GET /api/v1/users/${id}
 ```
 
 #### Update item
-Actualizas los datos de un usuario, ingresando los parametros requeridos.
-Debes ingresar el token generado en el endpoint de login para acceder a los datos. En Thunder Client ingresalo en la opción ***Auth -> Bearer***
+Actualizas los datos de un usuario, ingresando los parámetros requeridos.
+Debes ingresar el token generado en el endpoint de login para acceder a los datos. En Thunder Client ingrésalo en la opción ***Auth -> Bearer***
 ```http
   PUT /api/v1/users/${id}
 ```
@@ -116,7 +118,7 @@ Debes ingresar el token generado en el endpoint de login para acceder a los dato
 
 #### Delete item
 Borra los datos de un usuario, ingresando su id.
-Debes ingresar el token generado en el endpoint de login para acceder a los datos. En Thunder Client ingresalo en la opción ***Auth -> Bearer***
+Debes ingresar el token generado en el endpoint de login para acceder a los datos. En Thunder Client ingrésalo en la opción ***Auth -> Bearer***
 ```http
   DELETE /api/v1/users/${id}
 ```
