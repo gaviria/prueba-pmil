@@ -15,8 +15,8 @@ export default class UsersController {
   async store({ request, response }: HttpContext) {
     const data: IUser = await createUserValidator.validate(
       request.only([
-        'firstName',
-        'lastName',
+        'first_name',
+        'last_name',
         'date_birth',
         'address',
         'mobile_phone',
