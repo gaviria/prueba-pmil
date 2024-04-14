@@ -2,7 +2,7 @@ import vine from '@vinejs/vine'
 import { uniqueRule } from '../rules/unique.js'
 
 /**
- * Validates the post's creation action
+ * Validates the user's creation action
  */
 export const createUserValidator = vine.compile(
   vine.object({
@@ -16,6 +16,28 @@ export const createUserValidator = vine.compile(
       .trim()
       .email()
       .use(uniqueRule({ table: 'users', column: 'email' })),
+    password: vine.string().trim().minLength(6),
+  })
+)
+
+/**
+ * Validates the user's update action
+ */
+export const updateUserValidator = vine.withMetaData<{ userId: number }>().compile(
+  vine.object({
+    firstName: vine.string().trim().maxLength(20),
+    lastName: vine.string().trim().maxLength(20),
+    date_birth: vine.date(),
+    address: vine.string().trim().maxLength(100),
+    mobile_phone: vine.string().trim().maxLength(10),
+    email: vine.string().unique(async (db, value, field) => {
+      const user = await db
+        .from('users')
+        .whereNot('id', field.meta.userId)
+        .where('email', value)
+        .first()
+      return !user
+    }),
     password: vine.string().trim().minLength(6),
   })
 )
