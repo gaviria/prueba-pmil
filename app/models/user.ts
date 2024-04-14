@@ -29,7 +29,8 @@ export default class User extends compose(BaseModel, AuthFinder) {
   @column({ columnName: 'mobile_phone' })
   declare mobile_phone: string
 
-  @column({ columnName: 'token' })
+  //null for not show token in json response
+  @column({ columnName: 'token', serializeAs: null })
   declare token: string
 
   @column({ columnName: 'email' })
