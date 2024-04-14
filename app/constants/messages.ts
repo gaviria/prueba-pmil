@@ -1,3 +1,3 @@
 export const enum USER_MESSAGES {
-  DELETE_SUCCESS = 'Usuario eliminado correctamente',
+  DELETE_SUCCESS = 'User deleted successfully',
 }
