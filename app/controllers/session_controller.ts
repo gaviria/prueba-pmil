@@ -1,15 +1,14 @@
-import User from '#models/user'
+import SessionService from '#services/session_service'
+import { loginValidator } from '#validators/session'
+import { inject } from '@adonisjs/core'
 import { HttpContext } from '@adonisjs/core/http'
 
+@inject()
 export default class SessionController {
+  constructor(protected sessionService: SessionService) {}
   async login({ request }: HttpContext) {
-    const { mobile_phone, password } = request.only(['mobile_phone', 'password'])
-    const userValidated = await User.verifyCredentials(mobile_phone, password)
-    const token = await User.accessTokens.create(userValidated)
-    return {
-      user: userValidated,
-      access_token: token.value!.release(),
-      token_type: 'bearer',
-    }
+    const loginData = await loginValidator.validate(request.only(['mobile_phone', 'password']))
+    const userValidated = await this.sessionService.getUserValidatedAndToken(loginData)
+    return userValidated
   }
 }

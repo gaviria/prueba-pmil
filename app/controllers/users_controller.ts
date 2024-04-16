@@ -5,10 +5,14 @@ import { IUser } from '../interfaces/IUser.js'
 import User from '#models/user'
 import { USER_MESSAGES } from '../constants/messages.js'
 import { createUserValidator, updateUserValidator } from '#validators/user'
+import UserService from '#services/user_service'
+import { inject } from '@adonisjs/core'
 
+@inject()
 export default class UsersController {
+  constructor(protected userService: UserService) {}
   async index({ response }: HttpContext) {
-    const users: IUser[] = await User.all()
+    const users: IUser[] = await this.userService.getAllUsers()
     return response.send(users)
   }
 
@@ -25,30 +29,28 @@ export default class UsersController {
       ])
     )
 
-    const user: IUser = await User.create(data)
+    const user: IUser = await this.userService.storeUser(data)
 
     return response.send(user)
   }
 
   async show({ params, response }: HttpContext) {
-    const user: IUser = await User.findOrFail(params.id)
+    const user: IUser = await this.userService.getUserById(params.id)
     return response.send(user)
   }
 
   async update({ params, request, response }: HttpContext) {
-    const user = await User.findOrFail(params.id)
     const data: IUser = await request.validateUsing(updateUserValidator, {
       meta: { userId: params.id },
     })
 
-    user.merge(data)
-    await user.save()
+    const userUpdated: IUser = await this.userService.updateUser(params.id, data)
 
-    return response.send(user)
+    return response.send(userUpdated)
   }
 
   async destroy({ params, response }: HttpContext) {
-    const user = await User.findOrFail(params.id)
+    const user = await this.userService.getUserById(params.id)
     await user.delete()
     return response.send({ message: USER_MESSAGES.DELETE_SUCCESS, user: user })
   }
